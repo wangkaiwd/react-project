@@ -1,0 +1,47 @@
+@import "../../../assets/style/var.less";
+.top-header {
+  background-color: @header-bg;
+  height: 50px;
+  font-size: @font-base;
+  .top-inner {
+    width: 90%;
+    margin: 0 auto;
+    height: 50px;
+    line-height: 50px; // background-color: #fff;
+  }
+  .logo {
+    display: inline-block;
+    width: 120px;
+    height: 28px; // 必须要与运算符之间有空格
+    // 错误写法(50px-28px):没有空格的话不会生效
+    margin-top: calc((50px - 28px)/2);
+  }
+  .search {
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+  }
+  .search-icon {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 10px;
+    margin: auto 0;
+  }
+  .search-inp {
+    height: 26px;
+    width: 233px;
+    border-radius: 10px;
+  }
+  .search-box {
+    float: left;
+  }
+  .nav-list {
+    float: right;
+    li {
+      padding: 0 10px;
+      float: left;
+      color: @gray;
+    }
+  }
+}
