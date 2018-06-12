@@ -2,7 +2,8 @@
 .top-header {
   background-color: @header-bg;
   height: 50px;
-  font-size: @font-base;
+  font-size: @font-little;
+  overflow: hidden;
   .top-inner {
     width: 90%;
     margin: 0 auto;
@@ -17,6 +18,7 @@
     margin-top: calc((50px - 28px)/2);
   }
   .search {
+    margin-left: 10px;
     display: inline-block;
     position: relative;
     vertical-align: top;
@@ -25,13 +27,23 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 10px;
+    left: 4px;
     margin: auto 0;
+    font-weight: bold;
+  }
+  .anticon {
+    line-height: inherit;
   }
   .search-inp {
+    padding-left: 20px;
     height: 26px;
     width: 233px;
     border-radius: 10px;
+    background-color: #ccc;
+    &:hover,
+    &:focus {
+      background-color: #fff;
+    }
   }
   .search-box {
     float: left;
@@ -39,9 +51,12 @@
   .nav-list {
     float: right;
     li {
-      padding: 0 10px;
+      padding: 0 15px;
       float: left;
       color: @gray;
+      &:hover {
+        color: @white;
+      }
     }
   }
 }

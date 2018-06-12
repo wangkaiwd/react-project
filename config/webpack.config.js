@@ -35,6 +35,7 @@ module.exports = webpackMerge(devConfig, pluginConfig, {
       "@": resolve("src"),
       "component": resolve("src/component"),
       "style": resolve("src/assets/style"),
+      "views": resolve("src/views"),
     }
   },
   module: {
