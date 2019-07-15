@@ -1,26 +1,11 @@
-import React, { Component } from 'react'
-import { Layout } from 'antd';
-import TopHeader from 'component/layout/topHeader'
-const { Content } = Layout;
-class App extends Component {
-  constructor() {
-    super()
-    this.state = {
+import React from 'react';
 
-    }
-  }
-  render() {
-    return (
-      <Layout>
-        <Content>
-          <TopHeader />
-          <div className="main">
-            {this.props.children}
-          </div>
-        </Content>
-      </Layout>
-    )
-  }
+function App () {
+  return (
+    <div className="App">
+      React App
+    </div>
+  );
 }
 
-export default App
+export default App;
