@@ -1,5 +1,5 @@
 import React from 'react';
-import ContextDemo from './ContextDemo';
+import ContextDemo from '@/ContextDemo';
 
 const App: React.FC = () => {
   return (
