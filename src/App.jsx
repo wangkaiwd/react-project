@@ -9,11 +9,14 @@ class App extends Component {
     hasError: false
   };
   // 如果一个class组件中定义了static getDerivedStateFromError或者componentDidCatch
-  // 这2个声明周期中的任意一个(或2个)时，那么它就变成一个错误边界。
-  static getDerivedStateFromError () {
+  // 这2个生命周期中的任意一个(或2个)时，那么它就变成一个错误边界。
+
+  // 此生命周期会在后代组件抛出错误后被调用，它将抛出的错误作为参数，并返回一个值以更新state
+  static getDerivedStateFromError (error) {
     return { hasError: true };
   }
 
+  // 此生命周期在后代组件抛出错误后被调用。它接收2个参数：error:抛出的错误，errorInfo:一个包含componentStack属性的对象(抛出错误组件的信息)
   // componentDidCatch (error, errorInfo) {
   //   console.log(error, errorInfo);
   //   this.setState({ hasError: true });
