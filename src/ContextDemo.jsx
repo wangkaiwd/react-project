@@ -10,7 +10,6 @@ const Middle = () => <Leaf/>;
 //     </BatteryContext.Consumer>
 //   );
 // };
-
 class Leaf extends Component {
   // 在类组件中可以使用静态属性来接收context,之后就可以直接通过this.context来进行访问
   static contextType = BatteryContext;
