@@ -4,6 +4,7 @@ import React, { lazy, Suspense, Component } from 'react';
 // 这里我们也可以在引入路径前使用magic comment来为webpack传递一些信息从而实现类似于
 // 设置代码分割chunk的名称或者预加载等功能
 const ContextDemo = lazy(() => import(/* webpackChunkName:"Context" */'./ContextDemo'));
+const MemoDemo = lazy(() => import(/*webpackChunkName: "Memo"*/ './MemoDemo'));
 class App extends Component {
   state = {
     hasError: false
@@ -33,6 +34,7 @@ class App extends Component {
       <div className="App">
         <Suspense fallback={<div>loading...</div>}>
           <ContextDemo/>
+          <MemoDemo/>
         </Suspense>
       </div>
     );
