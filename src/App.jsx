@@ -5,6 +5,7 @@ import React, { lazy, Suspense, Component } from 'react';
 // 设置代码分割chunk的名称或者预加载等功能
 const ContextDemo = lazy(() => import(/* webpackChunkName:"Context" */'./ContextDemo'));
 const MemoDemo = lazy(() => import(/*webpackChunkName: "Memo"*/ './MemoDemo'));
+const UseStateDemo = lazy(() => import(/*webpackChunkName: "UseState"*/'./UseStateDemo'));
 class App extends Component {
   state = {
     hasError: false
@@ -35,6 +36,7 @@ class App extends Component {
         <Suspense fallback={<div>loading...</div>}>
           <ContextDemo/>
           <MemoDemo/>
+          <UseStateDemo/>
         </Suspense>
       </div>
     );
