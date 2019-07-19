@@ -1,10 +1,19 @@
-import React, { Component } from 'react';
+import React, { Component, memo, PureComponent } from 'react';
 
 interface ChildClassProp {
   name: string
 }
 
-class ChildClass extends Component<ChildClassProp, {}> {
+// PureComponent中以浅层对比prop和state的方式实现了该函数
+class ChildClass extends PureComponent<ChildClassProp, {}> {
+  // shouldComponentUpdate (nextProps: Readonly<ChildClassProp>): boolean {
+  //   if (this.props.name === nextProps.name) {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
+
   render () {
     console.log('childClass update');
     return (
@@ -15,9 +24,15 @@ class ChildClass extends Component<ChildClassProp, {}> {
   }
 }
 
-// const ChildFunc = () => {
-//
-// };
+// 而在函数式组件中，通过memo来实现了prop和state的浅层对比
+const ChildFunc: React.FC<ChildClassProp> = memo((props) => {
+  console.log('childClass update');
+  return (
+    <h3>
+      {props.name}
+    </h3>
+  );
+});
 
 interface MemoDemoState {
   name: string;
@@ -37,7 +52,9 @@ class MemoDemo extends Component<{}, MemoDemoState> {
         <button onClick={() => this.setState({ count: count + 1 })}>
           add count
         </button>
-        <ChildClass name={name}/>
+        <h3>{count}</h3>
+        {/*即使并没有更改name,但是子组件还是刷新了*/}
+        <ChildFunc name={name}/>
       </div>
     );
   }
