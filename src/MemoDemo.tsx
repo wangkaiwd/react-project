@@ -54,6 +54,7 @@ class MemoDemo extends Component<{}, MemoDemoState> {
         </button>
         <h3>{count}</h3>
         {/*即使并没有更改name,但是子组件还是刷新了*/}
+        {/*要注意:这里如果传入一个匿名的箭头函数的话，会在每次render的时候都会重新生成一个新的函数*/}
         <ChildFunc name={name}/>
       </div>
     );

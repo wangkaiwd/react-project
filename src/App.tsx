@@ -49,7 +49,7 @@ class App extends Component<AppProps, AppState> {
     return (
       <Suspense fallback={<div>loading...</div>}>
         {/*<ContextDemo/>*/}
-        <MemoDemo/>
+        {/*<MemoDemo/>*/}
       </Suspense>
     );
   }
