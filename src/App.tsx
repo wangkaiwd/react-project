@@ -1,7 +1,7 @@
 import React, { Component, lazy, Suspense } from 'react';
-// import ContextDemo from '@/ContextDemo';
 
 const ContextDemo = lazy(() => import(/* webpackChunkName: "contextDemo" */'./ContextDemo'));
+const MemoDemo = lazy(() => import(/* webpackChunkName: "memoDemo" */ './MemoDemo'));
 
 // const App: React.FC = () => {
 //   return (
@@ -48,7 +48,8 @@ class App extends Component<AppProps, AppState> {
     }
     return (
       <Suspense fallback={<div>loading...</div>}>
-        <ContextDemo/>
+        {/*<ContextDemo/>*/}
+        <MemoDemo/>
       </Suspense>
     );
   }

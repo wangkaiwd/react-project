@@ -3,18 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/jest": "24.0.15",
-    "@types/node": "12.6.3",
-    "@types/react": "16.8.23",
-    "@types/react-dom": "16.8.4",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1",
-    "typescript": "3.5.3"
+    "react-dom": "^16.8.6"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
+    "start": "env-cmd -e dev -r .env-cmdrc craco start",
+    "build": "env-cmd -e prod -r .env-cmdrc craco build",
+    "build:analysis": "env-cmd -e analysis -r .env-cmdrc craco build",
     "test": "craco test",
     "eject": "craco eject"
   },
@@ -35,6 +30,16 @@
   },
   "devDependencies": {
     "@craco/craco": "^5.2.4",
-    "webpackbar": "^3.2.0"
+    "autodll-webpack-plugin": "^0.4.2",
+    "env-cmd": "^9.0.3",
+    "hard-source-webpack-plugin": "^0.13.1",
+    "webpack-bundle-analyzer": "^3.3.2",
+    "webpackbar": "^3.2.0",
+    "@types/jest": "24.0.15",
+    "@types/node": "12.6.3",
+    "@types/react": "16.8.23",
+    "@types/react-dom": "16.8.4",
+    "react-scripts": "3.0.1",
+    "typescript": "3.5.3"
   }
 }
