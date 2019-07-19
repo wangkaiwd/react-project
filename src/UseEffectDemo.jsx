@@ -11,12 +11,12 @@ const UseEffectDemo = (props) => {
     document.title = count.toString();
   });
   const onResize = () => {
-    const width = document.documentElement.clientWidth;
-    const height = document.documentElement.clientHeight;
     // 为什么不能直接改变size(下边的代码不会生效)?
     // size.width = document.documentElement.clientWidth;
     // size.height = document.documentElement.clientHeight;
-    // setSize(size)
+    // setSize(size);
+    const width = document.documentElement.clientWidth;
+    const height = document.documentElement.clientHeight;
     setSize({ width, height });
   };
   useEffect(() => {
