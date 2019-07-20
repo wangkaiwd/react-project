@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, Component } from 'react';
+import React, { lazy, Suspense, Component, createContext } from 'react';
 // import ContextDemo from './ContextDemo';
 // 使用import()动态引入组件是一个很好的利用webpack代码分割功能的方式，
 // 这里我们也可以在引入路径前使用magic comment来为webpack传递一些信息从而实现类似于
@@ -7,9 +7,14 @@ import React, { lazy, Suspense, Component } from 'react';
 // const MemoDemo = lazy(() => import(/*webpackChunkName: "Memo"*/ './MemoDemo'));
 // const UseStateDemo = lazy(() => import(/*webpackChunkName: "UseState"*/'./UseStateDemo'));
 const UseEffectDemo = lazy(() => import(/*webpackChunkName: "UseEffect"*/ './UseEffectDemo'));
+const UseContextDemo = lazy(() => import(/*webpackChunkName: "UseContext"*/ './UseContextDemo'));
+
+export const CountContext = createContext(0);
+
 class App extends Component {
   state = {
-    hasError: false
+    hasError: false,
+    count: 10
   };
   // 如果一个class组件中定义了static getDerivedStateFromError或者componentDidCatch
   // 这2个生命周期中的任意一个(或2个)时，那么它就变成一个错误边界。
@@ -26,7 +31,7 @@ class App extends Component {
   // }
 
   render () {
-    const { hasError } = this.state;
+    const { hasError, count } = this.state;
     if (hasError) {
       return (
         <h2>出错了</h2>
@@ -34,12 +39,15 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <Suspense fallback={<div>loading...</div>}>
-          {/*<ContextDemo/>*/}
-          {/*<MemoDemo/>*/}
-          {/*<UseStateDemo/>*/}
-          <UseEffectDemo/>
-        </Suspense>
+        <CountContext.Provider value={count}>
+          <Suspense fallback={<div>loading...</div>}>
+            {/*<ContextDemo/>*/}
+            {/*<MemoDemo/>*/}
+            {/*<UseStateDemo/>*/}
+            {/*<UseEffectDemo/>*/}
+            <UseContextDemo/>
+          </Suspense>
+        </CountContext.Provider>
       </div>
     );
   }
