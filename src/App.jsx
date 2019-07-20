@@ -9,7 +9,7 @@ import React, { createContext, lazy, Suspense, useState, useCallback } from 'rea
 const UseEffectDemo = lazy(() => import(/*webpackChunkName: "UseEffect"*/ './UseEffectDemo'));
 const UseContextDemo = lazy(() => import(/*webpackChunkName: "UseContext"*/ './UseContextDemo'));
 const UseMemoDemo = lazy(() => import(/*webpackChunkName: "UseContext"*/ './UseMemoDemo'));
-
+const UseRefDemo = lazy(() => import(/*webpackChunkName: "UseRef"*/'./UseRefDemo'));
 export const CountContext = createContext(0);
 
 // class App extends Component {
@@ -48,7 +48,6 @@ export const CountContext = createContext(0);
 //           {/*<UseStateDemo/>*/}
 //           {/*<UseEffectDemo/>*/}
 //           {/*<UseContextDemo/>*/}
-//           <UseMemoDemo/>
 //         </Suspense>
 //         {/*</CountContext.Provider>*/}
 //       </div>
@@ -74,7 +73,8 @@ const App = () => {
     <div>
       <button onClick={() => setCount(count + 1)}>plus ({count})</button>
       <Suspense fallback={<div>loading...</div>}>
-        <UseMemoDemo onClick={onClick}/>
+        {/*<UseMemoDemo onClick={onClick}/>*/}
+        <UseRefDemo/>
         <h3>{count2}</h3>
       </Suspense>
     </div>
