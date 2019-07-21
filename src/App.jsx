@@ -10,6 +10,7 @@ const UseEffectDemo = lazy(() => import(/*webpackChunkName: "UseEffect"*/ './Use
 const UseContextDemo = lazy(() => import(/*webpackChunkName: "UseContext"*/ './UseContextDemo'));
 const UseMemoDemo = lazy(() => import(/*webpackChunkName: "UseContext"*/ './UseMemoDemo'));
 const UseRefDemo = lazy(() => import(/*webpackChunkName: "UseRef"*/'./UseRefDemo'));
+const CustomHooks = lazy(() => import(/* webpackChunkName */'./CustomHooks'));
 export const CountContext = createContext(0);
 
 // class App extends Component {
@@ -74,8 +75,9 @@ const App = () => {
       <button onClick={() => setCount(count + 1)}>plus ({count})</button>
       <Suspense fallback={<div>loading...</div>}>
         {/*<UseMemoDemo onClick={onClick}/>*/}
-        <UseRefDemo/>
-        <h3>{count2}</h3>
+        {/*<UseRefDemo/>*/}
+        {/*<h3>{count2}</h3>*/}
+        <CustomHooks/>
       </Suspense>
     </div>
   );
