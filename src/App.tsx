@@ -1,10 +1,11 @@
-import React, { Component, createContext, lazy, Suspense } from 'react';
+import React, { Component, createContext, lazy, Suspense, useCallback, useState } from 'react';
 
 const ContextDemo = lazy(() => import(/* webpackChunkName: "contextDemo" */'./ContextDemo'));
 const MemoDemo = lazy(() => import(/* webpackChunkName: "memoDemo" */ './MemoDemo'));
 const UseStateDemo = lazy(() => import(/* webpackChunkName: "useStateDemo" */'./UseStateDemo'));
 const UseEffectDemo = lazy(() => import(/* webpackChunkName: "useEffectDemo" */'./UseEffectDemo'));
 const UseContextDemo = lazy(() => import(/* webpackChunkName: "UseContextDemo" */'./UseContextDemo'));
+const UseMemoDemo = lazy(() => import(/* webpackChunkName: "UseContextDemo" */'./UseMemoDemo'));
 
 // const App: React.FC = () => {
 //   return (
@@ -61,11 +62,24 @@ interface AppProps {
 // }
 export const CountContext = createContext(0);
 const App: React.FC = () => {
+  const [count, setCount] = useState(0);
+  // 这样依旧会在每次更新App组件的时候，重新创建函数，会导致使用类似于shouldComponentUpdate进行性能优化的子组件每次都更新
+  // const onClick = () => {
+  //   console.log('click');
+  // };
+  const onClick = useCallback(() => {
+    console.log('click');
+  }, []);
+  const onPlus = () => {
+    setCount(count + 1);
+  };
   return (
     <div>
       <CountContext.Provider value={60}>
+        <button onClick={onPlus}>plus({count})</button>
         <Suspense fallback={<div>loading...</div>}>
-          <UseContextDemo/>
+          {/*<UseContextDemo/>*/}
+          <UseMemoDemo onClick={onClick}/>
         </Suspense>
       </CountContext.Provider>
     </div>
