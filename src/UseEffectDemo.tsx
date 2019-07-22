@@ -10,6 +10,7 @@ interface SizeProps {
 }
 
 const UseEffectDemo: React.FC<Props> = () => {
+  const [count, setCount] = useState<number>(0);
   const [size, setSize] = useState<SizeProps>({
     width: document.documentElement.clientWidth,
     height: document.documentElement.clientHeight
@@ -28,7 +29,11 @@ const UseEffectDemo: React.FC<Props> = () => {
   }, []);
   return (
     <div>
+      <button onClick={() => setCount(count + 1)}>
+        plus({count})
+      </button>
       <h2>size: {size.width} × {size.height}</h2>
+      <h2>count: {count}</h2>
     </div>
   );
 };
