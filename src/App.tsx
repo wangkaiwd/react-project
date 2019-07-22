@@ -6,6 +6,7 @@ const UseStateDemo = lazy(() => import(/* webpackChunkName: "useStateDemo" */'./
 const UseEffectDemo = lazy(() => import(/* webpackChunkName: "useEffectDemo" */'./UseEffectDemo'));
 const UseContextDemo = lazy(() => import(/* webpackChunkName: "UseContextDemo" */'./UseContextDemo'));
 const UseMemoDemo = lazy(() => import(/* webpackChunkName: "UseContextDemo" */'./UseMemoDemo'));
+const UseRefDemo = lazy(() => import(/* webpackChunkName:"useRefDemo" */'./UseRefDemo'));
 
 // const App: React.FC = () => {
 //   return (
@@ -79,7 +80,8 @@ const App: React.FC = () => {
         <button onClick={onPlus}>plus({count})</button>
         <Suspense fallback={<div>loading...</div>}>
           {/*<UseContextDemo/>*/}
-          <UseMemoDemo onClick={onClick}/>
+          {/*<UseMemoDemo onClick={onClick}/>*/}
+          <UseRefDemo/>
         </Suspense>
       </CountContext.Provider>
     </div>
