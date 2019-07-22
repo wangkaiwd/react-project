@@ -1,4 +1,5 @@
 import React, { Component, createContext, lazy, Suspense, useCallback, useState } from 'react';
+import CustomHooks from '@/CustomHooks';
 
 const ContextDemo = lazy(() => import(/* webpackChunkName: "contextDemo" */'./ContextDemo'));
 const MemoDemo = lazy(() => import(/* webpackChunkName: "memoDemo" */ './MemoDemo'));
@@ -81,7 +82,8 @@ const App: React.FC = () => {
         <Suspense fallback={<div>loading...</div>}>
           {/*<UseContextDemo/>*/}
           {/*<UseMemoDemo onClick={onClick}/>*/}
-          <UseRefDemo/>
+          {/*<UseRefDemo/>*/}
+          <CustomHooks/>
         </Suspense>
       </CountContext.Provider>
     </div>
