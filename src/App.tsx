@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import useRequest from '@/http/useRequest';
 import { fetchDemo } from '@/api';
+import { Button } from 'antd-mobile';
 
 interface Props {
 
 }
+
+// 一个真实的业务场景：
+//    稍微复杂一些： 可编辑表格，当表格内容编辑的时候，我们要更改原来请求到的数据
 
 const App: React.FC<Props> = () => {
   const [{ isLoading, data, error }] = useRequest(fetchDemo);
@@ -14,20 +18,12 @@ const App: React.FC<Props> = () => {
   }, [data1]);
   return (
     <div>
-      {
-        isLoading ? 'loading' : undefined
-      }
-      <button onClick={() => {
+      <Button size={'small'} type={'primary'} onClick={() => {
         console.log('click');
         changeDoFetch();
       }}>
         click
-      </button>
-      <div>
-        {
-          isLoading1 ? <h3>loading...</h3> : <h1>加载完成</h1>
-        }
-      </div>
+      </Button>
     </div>
   );
 };
