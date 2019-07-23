@@ -1,6 +1,5 @@
 const path = require('path');
 const WebpackBar = require('webpackbar');
-// const AutoDllPlugin = require('autodll-webpack-plugin');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const BabelRcPlugin = require('@jackwilsdon/craco-use-babelrc');
@@ -11,19 +10,7 @@ const absPath = (dir) => path.resolve(__dirname, dir);
 const generatePlugins = () => {
   const plugins = [
     new WebpackBar(),
-    new HardSourceWebpackPlugin(),
-    // new AutoDllPlugin({
-    //   inject: true, // will inject the DLL bundle to index.html
-    //   debug: true,
-    //   filename: '[name]_[hash].js',
-    //   path: './dll',
-    //   entry: {
-    //     vendor: [
-    //       'react',
-    //       'react-dom'
-    //     ]
-    //   }
-    // })
+    new HardSourceWebpackPlugin()
   ];
   if (isAnalysis) {
     plugins.push(new BundleAnalyzerPlugin());
