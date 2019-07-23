@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import axios from '@/http/axiosConfig';
 
 interface Params {
@@ -19,10 +19,22 @@ interface ApiProps {
   msg: string;
 }
 
-const useRequest = (api: RequestFunc, params?: Params) => {
+type Trigger = 'init' | 'manual'
+// 常用的列表请求可以使用这个自定义hooks，但是当通过点击一个按钮来发送请求好像并不适用
+const useRequest = (api: RequestFunc, params?: Params, trigger: Trigger = 'init') => {
   const [data, setData] = useState<Params>({});
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  // 可以手动控制发起请求的时机，默认为页面加载完成洪湖发起请求
+  // 需要注意：这里不能使用函数，当为useState传入一个函数的时候，会懒加载初始的state
+  // const [api, setApi] = useState<RequestFunc | undefined>(defaultApi);
+  // const [apiUse, setApi] = useState<RequestFunc | undefined>(() => {
+  //   return api;
+  // });
+  const [doFetch, setDoFetch] = useState(false);
+  const dependence = useMemo(() => {
+    return trigger === 'init' ? [] : [doFetch];
+  }, []);
   useEffect(() => {
     setIsLoading(true);
     api(params).then(res => {
@@ -32,8 +44,9 @@ const useRequest = (api: RequestFunc, params?: Params) => {
       setError(error);
       setIsLoading(false);
     });
-  }, []);
-  return [isLoading, data, error];
+  }, dependence);
+  const changeDoFetch = () => setDoFetch(!doFetch);
+  return [{ isLoading, data, error }, changeDoFetch] as [any, any];
 };
 
 export const request: Request = {

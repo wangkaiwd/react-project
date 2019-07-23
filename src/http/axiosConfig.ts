@@ -2,7 +2,7 @@ import Axios from 'axios';
 
 const axios = Axios.create({
   baseURL: ' https://easy-mock.com/mock/5cb343e6bc34df60b08c29f4',
-  timeout: 1000,
+  timeout: 10000,
 });
 
 axios.interceptors.request.use(function (config) {
