@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import axios from '@/http/axiosConfig';
 
 interface Params {
@@ -21,7 +21,7 @@ interface ApiProps {
 
 type Trigger = 'init' | 'manual'
 // 常用的列表请求可以使用这个自定义hooks，但是当通过点击一个按钮来发送请求好像并不适用
-const useRequest = (api: RequestFunc, params?: Params, trigger: Trigger = 'init') => {
+const useRequest = (api: RequestFunc, params: Params = {}, trigger: Trigger = 'init') => {
   const [data, setData] = useState<Params>({});
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -32,20 +32,27 @@ const useRequest = (api: RequestFunc, params?: Params, trigger: Trigger = 'init'
   //   return api;
   // });
   const [doFetch, setDoFetch] = useState(false);
+  const isInitialMount = useRef(true);
   const dependence = useMemo(() => {
     return trigger === 'init' ? [] : [doFetch];
-  }, []);
+  }, [doFetch]);
   useEffect(() => {
-    setIsLoading(true);
-    api(params).then(res => {
-      setData(res.data);
-      setIsLoading(false);
-    }).catch(error => {
-      setError(error);
-      setIsLoading(false);
-    });
+    if (isInitialMount.current && trigger === 'manual') {
+      isInitialMount.current = false;
+    } else {
+      setIsLoading(true);
+      api(params).then(res => {
+        setData(res.data);
+        setIsLoading(false);
+      }).catch(error => {
+        setError(error);
+        setIsLoading(false);
+      });
+    }
   }, dependence);
-  const changeDoFetch = () => setDoFetch(!doFetch);
+  const changeDoFetch = () => {
+    setDoFetch(!doFetch);
+  };
   return [{ isLoading, data, error }, changeDoFetch] as [any, any];
 };
 
