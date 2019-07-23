@@ -1,4 +1,5 @@
 import React, { createContext, lazy, Suspense, useState, useCallback } from 'react';
+import { Button } from 'antd';
 // import ContextDemo from './ContextDemo';
 // 使用import()动态引入组件是一个很好的利用webpack代码分割功能的方式，
 // 这里我们也可以在引入路径前使用magic comment来为webpack传递一些信息从而实现类似于
@@ -72,7 +73,7 @@ const App = () => {
   }, []); // 当依赖项发生变化的时候会返回一个新的函数
   return (
     <div>
-      <button onClick={() => setCount(count + 1)}>plus ({count})</button>
+      <Button onClick={() => setCount(count + 1)}>plus ({count})</Button>
       <Suspense fallback={<div>loading...</div>}>
         {/*<UseMemoDemo onClick={onClick}/>*/}
         {/*<UseRefDemo/>*/}
