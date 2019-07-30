@@ -1,4 +1,4 @@
-## 译: 开发一个`React`开关切换组件
+## 开发一个`React`开关切换组件
 学习如何使用原生`HTML`的复选框来开发一个`React`开关组件，在这个过程你将会学到许多`React`复选框相关的知识。
 
 下面是`IOS`向世界推出的`UI`组件，人们把它称之为`Switch`或者`Toggle`：  
@@ -47,45 +47,43 @@ export default Switch;
 ### 用`CSS`来美化组件
 在组件文件的同一目录下建立`Switch.css`文件,加入下面的`CSS`代码，大概看一下每个类的用途。我不打算在这篇教程中去探索`CSS`,文章的重点是`JavaScript`和`React`。
 ```scss
-.react-switch-checkbox {
-  height: 0;
-  width: 0;
-  visibility: hidden;
-}
-
-.react-switch-label {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-  width: 100px;
-  height: 50px;
-  background: grey;
-  border-radius: 100px;
-  position: relative;
-  transition: background-color .2s;
-}
-
-.react-switch-label .react-switch-button {
-  content: '';
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 45px;
-  height: 45px;
-  border-radius: 45px;
-  transition: 0.2s;
-  background: #fff;
-  box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
-}
-
-.react-switch-checkbox:checked + .react-switch-label .react-switch-button {
-  left: calc(100% - 2px);
-  transform: translateX(-100%);
-}
-
-.react-switch-label:active .react-switch-button {
-  width: 60px;
+.self-ui-switch {
+  display: inline-flex;
+  vertical-align: top;
+  &-input {
+    height: 0;
+    width: 0;
+    display: none;
+  }
+  &-label {
+    position: relative;
+    width: 100px;
+    height: 50px;
+    background-color: gray;
+    border-radius: 100px;
+    cursor: pointer;
+  }
+  &-button {
+    position: absolute;
+    height: 46px;
+    width: 46px;
+    top: 50%;
+    left: 2px;
+    // 这里不能使用border-radius: 50%;会导致在button变宽的时候样式变丑
+    border-radius: 46px;
+    transform: translateY(-50%);
+    background-color: #fff;
+    transition: all 0.2s;
+    box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
+  }
+  &-input:checked + &-label &-button {
+    // 只有设置相同属性才会覆盖，这里并不能使用right: 2px,只能使用left: calc(100% - 2px);
+    left: calc(100% - 2px);
+    transform: translateX(-100%) translateY(-50%);
+  }
+  &-label:active &-button {
+    width: 60px;
+  }
 }
 ```
 
@@ -123,28 +121,60 @@ export default App;
 我们的`Switch`组件将会是一个无状态组件，它需要父组件通过`props`来为它传递属性。
 
 打开`Switch.js`并且进行如下修改：  
-```jsx harmony
+```typescript jsx
 import React from 'react';
+import './Switch.scss';
 
-const Switch = ({ isOn, handleToggle }) => {
+interface Props {
+  checked: boolean,
+  onChange: (e: React.ChangeEvent) => void
+}
+
+const Switch: React.FunctionComponent<Props> = (props) => {
   return (
-    <>
+    <div className={'self-ui-switch'}>
       <input
-        checked={isOn}
-        onChange={handleToggle}
-        className="react-switch-checkbox"
-        id={`react-switch-new`}
+        checked={props.checked}
+        onChange={props.onChange}
+        id={'switch-input'}
+        className={'self-ui-switch-input'}
         type="checkbox"
       />
       <label
-        className="react-switch-label"
-        htmlFor={`react-switch-new`}
+        className={'self-ui-switch-label'}
+        htmlFor="switch-input"
       >
-        <span className={`react-switch-button`} />
+        <span className={'self-ui-switch-button'}/>
       </label>
-    </>
+    </div>
   );
 };
 
 export default Switch;
 ```
+代码相比于之前有2个新增内容：  
+* `checked`: 通过父组件传入的`checked`来控制是否选中
+* `onChange`: 通过父组件传入的`onChange`来更改组件的`checked`属性
+
+最后，打开父组件(我使用的是`App.tsx`)并且修改组件的使用方式：  
+```typescript jsx
+import React, { useState } from 'react';
+import Switch from '@/components/switch/Switch';
+const App: React.FC = () => {
+  const [checked, setChecked] = useState(false);
+  return (
+    <div className={'app'}>
+      <Switch checked={checked} onChange={() => setChecked(!checked)}/>
+    </div>
+  );
+};
+export default App;
+```
+注意，现在父组件的状态来自于`useState hooks`。这意味着这个组件将要向下传递状态到我们的`Switch`组件的`checked`属性。
+
+我们也在`onChange`函数中向下传递了设置函数`setChecked`。这样，在`Switch`组件进行切换改变`value`值的时候，他将会调用父组件传下来的`onChange`函数
+
+### 切换时改变背景色
+如果你完成了上边的代码，会发现`Switch`组件在切换状态的时候视觉`UI`上并没有什么不同。
+
+### 指定切换颜色
