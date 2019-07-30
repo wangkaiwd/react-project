@@ -1,4 +1,4 @@
-import React, { Component, createContext, lazy, Suspense, useCallback, useState } from 'react';
+import React, { Component, createContext, lazy, Suspense, useCallback, useState, Fragment } from 'react';
 import CustomHooks from '@/CustomHooks';
 import Switch from '@/components/switch/Switch';
 
@@ -77,18 +77,18 @@ const App: React.FC = () => {
     setCount(count + 1);
   };
   return (
-    <div>
+    <Fragment>
       <CountContext.Provider value={60}>
-        <button onClick={onPlus}>plus({count})</button>
+        {/*<button onClick={onPlus}>plus({count})</button>*/}
         <Suspense fallback={<div>loading...</div>}>
           {/*<UseContextDemo/>*/}
           {/*<UseMemoDemo onClick={onClick}/>*/}
           {/*<UseRefDemo/>*/}
           {/*<CustomHooks/>*/}
-          <Switch/>
         </Suspense>
+        <Switch/>
       </CountContext.Provider>
-    </div>
+    </Fragment>
   );
 };
 export default App;
