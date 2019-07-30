@@ -1,5 +1,6 @@
 import React, { Component, createContext, lazy, Suspense, useCallback, useState } from 'react';
 import CustomHooks from '@/CustomHooks';
+import Switch from '@/components/switch/Switch';
 
 const ContextDemo = lazy(() => import(/* webpackChunkName: "contextDemo" */'./ContextDemo'));
 const MemoDemo = lazy(() => import(/* webpackChunkName: "memoDemo" */ './MemoDemo'));
@@ -83,7 +84,8 @@ const App: React.FC = () => {
           {/*<UseContextDemo/>*/}
           {/*<UseMemoDemo onClick={onClick}/>*/}
           {/*<UseRefDemo/>*/}
-          <CustomHooks/>
+          {/*<CustomHooks/>*/}
+          <Switch/>
         </Suspense>
       </CountContext.Provider>
     </div>
