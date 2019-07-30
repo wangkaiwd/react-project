@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "antd": "^3.20.7",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
@@ -34,10 +35,9 @@
     "@types/node": "12.6.3",
     "@types/react": "16.8.23",
     "@types/react-dom": "16.8.4",
-    "autodll-webpack-plugin": "^0.4.2",
+    "craco-antd": "^1.11.0",
     "env-cmd": "^9.0.3",
     "hard-source-webpack-plugin": "^0.13.1",
-    "html-webpack-plugin": "^3.2.0",
     "react-scripts": "3.0.1",
     "typescript": "3.5.3",
     "webpack-bundle-analyzer": "^3.3.2",

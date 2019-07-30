@@ -1,6 +1,6 @@
 const path = require('path');
 const WebpackBar = require('webpackbar');
-// const AutoDllPlugin = require('autodll-webpack-plugin');
+const CracoAntDesignPlugin = require('craco-antd');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const isAnalysis = process.env.REACT_APP_MODE === 'analysis', isDev = process.env.NODE_ENV === 'development',
@@ -11,18 +11,6 @@ const generatePlugins = () => {
   const plugins = [
     new WebpackBar(),
     new HardSourceWebpackPlugin(),
-    // new AutoDllPlugin({
-    //   inject: true, // will inject the DLL bundle to index.html
-    //   debug: true,
-    //   filename: '[name]_[hash].js',
-    //   path: './dll',
-    //   entry: {
-    //     vendor: [
-    //       'react',
-    //       'react-dom'
-    //     ]
-    //   }
-    // })
   ];
   if (isAnalysis) {
     plugins.push(new BundleAnalyzerPlugin());
@@ -35,10 +23,11 @@ module.exports = {
     enable: false
   },
   webpack: {
-    devtool: isDev ? 'cheap-module-eval-source-map' : 'cheap-module-source-map',
+    devtool: isDev ? 'cheap-module-eval-source-map' : 'none',
     alias: {
       '@': absPath('./src')
     },
     plugins: generatePlugins()
   },
+  plugins: [{ plugin: CracoAntDesignPlugin }]
 };
