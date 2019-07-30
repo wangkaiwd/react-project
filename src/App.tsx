@@ -66,6 +66,7 @@ interface AppProps {
 export const CountContext = createContext(0);
 const App: React.FC = () => {
   const [count, setCount] = useState(0);
+  const [checked, setChecked] = useState(false);
   // 这样依旧会在每次更新App组件的时候，重新创建函数，会导致使用类似于shouldComponentUpdate进行性能优化的子组件每次都更新
   // const onClick = () => {
   //   console.log('click');
@@ -86,7 +87,7 @@ const App: React.FC = () => {
           {/*<UseRefDemo/>*/}
           {/*<CustomHooks/>*/}
         </Suspense>
-        <Switch/>
+        <Switch checked={checked} onChange={() => setChecked(!checked)}/>
       </CountContext.Provider>
     </Fragment>
   );

@@ -4,11 +4,25 @@ import React from 'react';
 //    需要注意：设置display: inline;属性后，最好添加vertical-align:top;，否则会出现一些莫名其妙的bug
 import './Switch.scss';
 
-const Switch = () => {
+interface Props {
+  checked: boolean,
+  onChange: (e: React.ChangeEvent) => void
+}
+
+const Switch: React.FunctionComponent<Props> = (props) => {
   return (
     <div className={'self-ui-switch'}>
-      <input id={'switch-input'} className={'self-ui-switch-input'} type="checkbox"/>
-      <label className={'self-ui-switch-label'} htmlFor="switch-input">
+      <input
+        checked={props.checked}
+        onChange={props.onChange}
+        id={'switch-input'}
+        className={'self-ui-switch-input'}
+        type="checkbox"
+      />
+      <label
+        className={'self-ui-switch-label'}
+        htmlFor="switch-input"
+      >
         <span className={'self-ui-switch-button'}/>
       </label>
     </div>

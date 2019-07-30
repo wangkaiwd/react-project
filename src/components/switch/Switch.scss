@@ -20,13 +20,15 @@
     width: 46px;
     top: 50%;
     left: 2px;
-    border-radius: 50%;
+    // 这里不能使用border-radius: 50%;会导致在button变宽的时候样式变丑
+    border-radius: 46px;
     transform: translateY(-50%);
     background-color: #fff;
-    transition: 0.2s;
+    transition: all 0.2s;
     box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
   }
   &-input:checked + &-label &-button {
+    // 只有设置相同属性才会覆盖，这里并不能使用right: 2px,只能使用left: calc(100% - 2px);
     left: calc(100% - 2px);
     transform: translateX(-100%) translateY(-50%);
   }

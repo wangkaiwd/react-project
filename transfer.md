@@ -46,4 +46,105 @@ export default Switch;
 
 ### 用`CSS`来美化组件
 在组件文件的同一目录下建立`Switch.css`文件,加入下面的`CSS`代码，大概看一下每个类的用途。我不打算在这篇教程中去探索`CSS`,文章的重点是`JavaScript`和`React`。
+```scss
+.react-switch-checkbox {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
 
+.react-switch-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  width: 100px;
+  height: 50px;
+  background: grey;
+  border-radius: 100px;
+  position: relative;
+  transition: background-color .2s;
+}
+
+.react-switch-label .react-switch-button {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 45px;
+  height: 45px;
+  border-radius: 45px;
+  transition: 0.2s;
+  background: #fff;
+  box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
+}
+
+.react-switch-checkbox:checked + .react-switch-label .react-switch-button {
+  left: calc(100% - 2px);
+  transform: translateX(-100%);
+}
+
+.react-switch-label:active .react-switch-button {
+  width: 60px;
+}
+```
+
+### 使用`Switch`组件
+要在`React`中使用`Switch`组件，我们还需要最后一步：在其它组件中`import` `Switch`组件并且在组件中声明：  
+```jsx harmony
+import React from 'react';
+import Switch from "./Switch";
+
+function App() {
+  return (
+    <div className="app">
+      <Switch />
+    </div>
+  );
+}
+
+export default App;
+```
+保存文件后，可以看到在浏览器中我们已经将一个简单的复选框转换成了一个看上去相当漂亮的`Switch`输入框：  
+
+### 通过`props`来接收事件和属性
+尽管我们的`Switch`组件可能看起来很实用，但其实它并没有正真的改变它的值。
+
+这是因为我们的组件缺少了俩个重要的属性：  
+* `checked`
+* `onChange`
+
+`checked`属性存储了`input`的当前`value`值。在我们的组件中，他可能是`true`或`false`。
+
+每当我们切换`Switch`组件时都会触发`onChange`事件，我们将会通过`onChange`来改变`Switch`组件的`value`值。
+
+在编写代码之前，我们需要了解一下无状态组件和有状态组件。一个无状态组件也叫做哑巴组件不能控制它自己的状态，因此，需要另外一个组件来记录`Switch`组件的状态。
+
+我们的`Switch`组件将会是一个无状态组件，它需要父组件通过`props`来为它传递属性。
+
+打开`Switch.js`并且进行如下修改：  
+```jsx harmony
+import React from 'react';
+
+const Switch = ({ isOn, handleToggle }) => {
+  return (
+    <>
+      <input
+        checked={isOn}
+        onChange={handleToggle}
+        className="react-switch-checkbox"
+        id={`react-switch-new`}
+        type="checkbox"
+      />
+      <label
+        className="react-switch-label"
+        htmlFor={`react-switch-new`}
+      >
+        <span className={`react-switch-button`} />
+      </label>
+    </>
+  );
+};
+
+export default Switch;
+```
